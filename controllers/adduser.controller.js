@@ -1,47 +1,98 @@
 const addUserModel = require('../models/adduser.model')
-const adminModel = require('../models/admin.model')
 
-exports.addUser = (req, res) => {
 
-    const addUserDetail = addUserModel({
+exports.addData = (req, res) => {
+
+    const addDetail = addUserModel({
         name: req.body.name,
         mobile: req.body.mobile,
         email: req.body.email,
         password: req.body.password
     })
 
-    addUserDetail.save((error, document) => {
+    addDetail.save((error, document) => {
         if (error) {
             res.send({
-                error: true
+                error: true,
+                message:"something went wrong"
             })
         } else {
             res.send({
                 error: false,
-                data: document
+                data: document,
+                message:"success"
             })
         }
     })
 
 }
 
-exports.getUsers = (req, res) => {
+exports.getAllData = (req, res) => {
 
-    addUserModel.find().then(data => {
+    addUserModel.find()
+    .then(data => {
         res.send({
             error: false,
-            data: data
-        })
-    }).catch(error => {
+            data: data,
+            message:"success"
+        })})
+    .catch(error => {
         console.log(error);
         res.send({
-            error: true
+            error: true,
+            message:"something went wrong"
         })
     })
 
 }
 
-exports.updateUsers = (req, res) => {
+exports.getDatabyId = (req, res) => {
+
+    addUserModel.findOne({_id:req.body._id})
+    .then(data => {
+        res.send({
+            error: false,
+            data: data,
+            message:"success"
+        })
+    })
+    .catch(error => {
+        console.log(error);
+        res.send({
+            error: true,
+            message:"something went wrong"
+        })
+    })
+}
+
+exports.updateDatabyId = (req, res) => {
+
+    addUserModel.findOneAndUpdate({
+        _id: req.body.user_id
+    }, {
+        $set: {
+            name: req.body.name,
+            mobile: req.body.mobile
+        }
+    }, {
+        new: true}, (error, document) => {
+        if (error) {
+            res.send({
+                error: true,
+                message:"something went wrong"
+            })
+        } else {
+            res.send({
+                error: false,
+                data: document,
+                message:"success"
+            })
+        }
+    })
+
+}
+
+exports.updateData = (req, res) => {
 
     addUserModel.findOneAndUpdate({
         _id: req.body.user_id
@@ -55,58 +106,35 @@ exports.updateUsers = (req, res) => {
     }, (error, document) => {
         if (error) {
             res.send({
-                error: true
+                error: true,
+                message:"something went wrong"
             })
         } else {
             res.send({
                 error: false,
-                data: document
+                data: document,
+                message:"success"
             })
         }
     })
 
 }
 
-exports.deleteUser = (req,res) => {
+exports.deleteData = (req,res) => {
     addUserModel.findOneAndDelete({
         _id: req.body.user_id
     },(error,document)=>{
         if(error){
             res.send({
-                error:true
+                error:true,
+                message:"something went wrong"
             })
         }else{
             res.send({
                 error:false,
-                data:document
+                data:document,
+                message:"success"
             })
         }
     })
-}
-
-exports.getAllData = (req, res) => {
-
-    addUserModel.find().then(userdata => {
-        adminModel.find().then(admindata => {
-            res.send({
-                error: false,
-                userdata: userdata,
-                admindata: admindata
-            })
-        }).catch(error => {
-            console.log(error);
-            res.send({
-                error: true
-            })
-        })
-    }).catch(error => {
-        console.log(error);
-        res.send({
-            error: true
-        })
-    })
-
-    
-
-
 }

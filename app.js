@@ -8,10 +8,10 @@ if (cluster.isMaster) {
     var cpuCount = require('os').cpus().length;
 
     // Create a worker for each CPU
-    for (var i = 0; i < cpuCount; i += 1) {
-        cluster.fork();
-    }
-
+    // for (var i = 0; i < cpuCount; i += 1) {
+    //     cluster.fork();
+    // }
+    cluster.fork();
     // Listen for terminating workers
     cluster.on('exit', function (worker) {
 
