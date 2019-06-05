@@ -5,8 +5,11 @@
   "dependencies": {
     "aws-sdk": "latest",
     "body-parser": "latest",
+    "cookie-parser": "^1.4.4",
     "ejs": "latest",
     "express": "latest",
+    "ip": "^1.1.5",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.4.10"
   },
   "scripts": {
