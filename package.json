@@ -9,7 +9,7 @@
     "ejs": "latest",
     "express": "latest",
     "ip": "^1.1.5",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.4.10"
   },
   "scripts": {
